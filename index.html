@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="Lancer" />
+    <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery.czTextboxtip.js"></script>
+    <link rel="stylesheet" href="http://im.crackedzone.com/resources/css/bootstrap.min.css">
+    <title>czTextboxtip Demo</title>
+</head>
+
+<body>
+<div class="container">
+<div class="page-header">
+    <h3>Demo : Please type in your E-mail and Username</h3>
+</div>
+<form class="form-horizontal">
+    <div class="control-group">
+        <label class="control-label" for="username">Your Name</label>
+        <div class="controls">
+            <input id="username" type="text" name="username" /></td>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="email">Your E-mail</label>
+        <div class="controls">
+            <input id="email" type="text" name="email" czTextboxtip="Enter" />
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $('#username').czTextboxtip({
+        tipValue : 'Enter your name',
+        initCallback : function() {
+            //log ('init successfully!');
+        },
+        blurCallback : function() {
+            log ('blur!');
+        },
+        focusCallback: function() {
+            log ('focus!');
+        },
+        enterCallback: function() {
+            log ('you press enter');
+        }
+    });
+
+    $('#email').czTextboxtip({
+        tipValue : 'Enter your E-mail',
+        initCallback : function() {
+            log ('init successfully!');
+        },
+        blurCallback : function() {
+            //log ('blur!');
+        },
+        focusCallback: function() {
+            //log ('focus!');
+        },
+        enterCallback: function() {
+            log ('you press enter');
+        }
+    });
+        
+    function log($message) {
+        var debug = true;
+        if ( debug ) {
+            if (window.console && window.console.log)
+                window.console.log($message);
+            else
+                alert($message);
+        } else {
+            alert($message);
+        } 
+    }
+  </script>
+</body>
+</html>
