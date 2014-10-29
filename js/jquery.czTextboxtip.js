@@ -2,12 +2,13 @@
  * $.czTextboxtip
  * @extends jquery.1.4.2
  * @fileOverview Make input textbox inner tip
- * @author Lancer
+ * @author Lancer He
  * @email lancer.he@gmail.com
  * @site crackedzone.com
- * @version 1.0
+ * @version 1.0.1
  * @date 2011-09-11
- * Copyright (c) 2011-2011 Lancer
+ * @update 2014-10-29
+ * Copyright (c) 2011-2014 Lancer He
  * @example
  *    $("#username").czTextboxtip();
  */
@@ -62,13 +63,12 @@
     czUI.czTextboxtip.prototype = {
       
         init: function() {
+            if ( this._isPlaceholderSupport() ) {
+                return null;
+            }
 
             var _that = this;
-      
-            //create a wrap html for tip and tip html
             this._create();
-
-            //init tip status
             this.initTip();
 
             //bind Event;
@@ -92,8 +92,6 @@
                 if ( e.which == 13 )
                     _that.enterEvent();
             });
-
-     
             this._callback('init');
         },
 
@@ -108,32 +106,33 @@
             
         },
 
+        _isPlaceholderSupport: function() {  
+            return 'placeholder' in document.createElement('input');  
+        },
+
         _create: function() {
-            
             this.$wrap = this.$element.wrap("<div></div>").parent();
             this.$wrap.css('position', 'relative')
                     .css('display', 'inline-block');
 
-            if ( typeof this.$element.attr('czTextboxtip') != 'undefined' )
-                this.options.tipValue = this.$element.attr('czTextboxtip');
+            if ( typeof this.$element.attr('placeholder') != 'undefined' )
+                this.options.tipValue = this.$element.attr('placeholder');
 
             this.$tip = this.$element.after("<div></div>").next();
-            this.$tip.html( this.options.tipValue )
-                  .css({
-                    'font-size'     : this.options.tipFontSize,
-                    'font-family'   : this.options.tipFontFamily,
-                    'color'         : this.options.tipColor,
-                    'position'          : 'absolute',
-                        'left'              : this._setAuto('marginLeft') + 'px',
-                        'top'               : this._setAuto('marginTop') + 'px',
-                    'padding-left'  : this._setAuto('paddingLeft') + this._setAuto('borderLeftWidth') + 'px',
-                        'padding-top'   : this._setAuto('paddingTop') + this._setAuto('borderTopWidth') + 'px',
-                        'padding-right' : this._setAuto('paddingRight') + this._setAuto('borderRightWidth') + 'px',
-                        'padding-bottom': this._setAuto('paddingBottom') + this._setAuto('borderBottomWidth') + 'px',
-                    'line-height'   : this.$element.height() + 'px'
-                  })
-                  .width( this.$element.width() )
-                  .height( this.$element.height() );
+            this.$tip.html( this.options.tipValue ).css({
+                'font-size'     : this.options.tipFontSize,
+                'font-family'   : this.options.tipFontFamily,
+                'color'         : this.options.tipColor,
+                'position'      : 'absolute',
+                'left'          : this._setAuto('marginLeft') + 'px',
+                'top'           : this._setAuto('marginTop') + 'px',
+                'padding-left'  : this._setAuto('paddingLeft') + this._setAuto('borderLeftWidth') + 'px',
+                'padding-top'   : this._setAuto('paddingTop') + this._setAuto('borderTopWidth') + 'px',
+                'padding-right' : this._setAuto('paddingRight') + this._setAuto('borderRightWidth') + 'px',
+                'padding-bottom': this._setAuto('paddingBottom') + this._setAuto('borderBottomWidth') + 'px',
+                'line-height'   : this.$element.height() + 'px'
+            }).width( this.$element.width() )
+            .height( this.$element.height() );
         },
 
 
@@ -175,5 +174,4 @@
             this.options[evt + 'Callback'].call(this);
         }
     }
-    
 })(jQuery);
